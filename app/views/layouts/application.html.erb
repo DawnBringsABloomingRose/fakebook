@@ -11,6 +11,15 @@
   </head>
 
   <body>
+    <div class="nav-bar">
+      <% if user_signed_in? %>
+        <p>Hello <%= current_user.display_name %></p>
+        <%= button_to "Sign out", destroy_user_session_path, method: :delete %>
+        <% else %>
+        <%= link_to "sign in", new_user_session_path %>
+        <%= link_to "sign up", new_user_registration_path %>
+      <% end %>
+    </div>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
 
