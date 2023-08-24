@@ -1,3 +1,4 @@
 <% @users.each do |user| %>
   <p><%= user.display_name %></p>
+  <%= link_to user.username, user %>
 <% end %>
