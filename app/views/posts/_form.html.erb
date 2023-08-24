@@ -6,10 +6,8 @@
     <%= form.check_box :public_status %>
   </div>
 
-  <div>
-    <%= form.label :user_id, style: "display: block" %>
-    <%= form.text_field :user_id %>
-  </div>
+   
+    <%= form.hidden_field :user_id, value: current_user.id %>
 
   <div>
     <%= form.label :text_content, style: "display: block" %>
