@@ -10,7 +10,10 @@ class User < ApplicationRecord
   has_many :owned_groups, foreign_key: "owner_id", class_name: "Group"
   has_many :group_members, foreign_key: "member_id"
   has_many :belonged_groups, through: :group_members, source: :group
-
+  has_many :follows, as: :following
+  has_many :following, foreign_key: "follower_id", class_name: "Follow"
+  has_many :followed_users, through: :following, source: :following, source_type: "User"
+  has_many :followed_groups, through: :following, source: :following, source_type: "Group"
 
   #friends
   has_many :sent_requests, foreign_key: "sender_id", class_name: "FriendRequest"

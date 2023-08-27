@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_27_185648) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_27_193705) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -23,6 +23,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_27_185648) do
     t.datetime "updated_at", null: false
     t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "follows", force: :cascade do |t|
+    t.bigint "follower_id", null: false
+    t.string "following_type", null: false
+    t.bigint "following_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["follower_id"], name: "index_follows_on_follower_id"
+    t.index ["following_type", "following_id"], name: "index_follows_on_following"
   end
 
   create_table "friend_requests", force: :cascade do |t|
@@ -111,6 +121,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_27_185648) do
   end
 
   add_foreign_key "comments", "users"
+  add_foreign_key "follows", "users", column: "follower_id"
   add_foreign_key "friend_requests", "users", column: "reciever_id"
   add_foreign_key "friend_requests", "users", column: "sender_id"
   add_foreign_key "friendships", "users", column: "friendee_id"

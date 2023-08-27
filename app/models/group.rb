@@ -4,4 +4,5 @@ class Group < ApplicationRecord
   has_many :members, through: :group_members
   has_many :group_posts
   has_many :posts, through: :group_posts
+  has_many :follows, as: :following
 end
