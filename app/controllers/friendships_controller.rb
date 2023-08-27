@@ -1,7 +1,10 @@
 class FriendshipsController < ApplicationController
   def create
+    return if User.find(friendship_params[:friendee_id]).friends.exists?(friendship_params[:friendor_id])
+    return if friendship_params[:friendee_id] == friendship_params[:friendor_id]
     @friendship = Friendship.new(friendship_params)
-    @friendship.save
+    if @friendship.save 
+      FriendRequest.find(params[:friend_request_id]).destroy
   end
 
   def friendship_params
