@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_26_185142) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_27_185648) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -42,6 +42,34 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_26_185142) do
     t.datetime "updated_at", null: false
     t.index ["friendee_id"], name: "index_friendships_on_friendee_id"
     t.index ["friendor_id"], name: "index_friendships_on_friendor_id"
+  end
+
+  create_table "group_members", force: :cascade do |t|
+    t.bigint "group_id", null: false
+    t.bigint "member_id", null: false
+    t.boolean "admin", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_group_members_on_group_id"
+    t.index ["member_id"], name: "index_group_members_on_member_id"
+  end
+
+  create_table "group_posts", force: :cascade do |t|
+    t.bigint "post_id", null: false
+    t.bigint "group_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_group_posts_on_group_id"
+    t.index ["post_id"], name: "index_group_posts_on_post_id"
+  end
+
+  create_table "groups", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.bigint "owner_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owner_id"], name: "index_groups_on_owner_id"
   end
 
   create_table "likes", force: :cascade do |t|
@@ -87,6 +115,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_26_185142) do
   add_foreign_key "friend_requests", "users", column: "sender_id"
   add_foreign_key "friendships", "users", column: "friendee_id"
   add_foreign_key "friendships", "users", column: "friendor_id"
+  add_foreign_key "group_members", "groups"
+  add_foreign_key "group_members", "users", column: "member_id"
+  add_foreign_key "group_posts", "groups"
+  add_foreign_key "group_posts", "posts"
+  add_foreign_key "groups", "users", column: "owner_id"
   add_foreign_key "likes", "users"
   add_foreign_key "posts", "users"
 end
