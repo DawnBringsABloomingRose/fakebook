@@ -5,6 +5,7 @@ class FriendshipsController < ApplicationController
     @friendship = Friendship.new(friendship_params)
     if @friendship.save 
       FriendRequest.find(params[:friend_request_id]).destroy
+    end
   end
 
   def friendship_params
