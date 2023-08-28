@@ -26,5 +26,18 @@ class User < ApplicationRecord
       END AS friend").where(friendee_id: self.id).or(Friendship.where(friendor_id: self.id)))
   end
 
+  def main_feed
+    # does not work with current version of rails
+    # open issue with "or" method and any form of join or eager loading
+    # keeping for potential future use
+    #Post.where(user: self.friends).or(Post.where(public_status: true, user: self.followed_users)).or(
+    #  Post.includes(:groups).where(groups: { id: self.group_members }).or(
+    #    Post.includes(:groups).where(public_status: true, groups: { id: self.group_members })))
+
+    Post.left_joins(:groups).where("(posts.user_id = ?) OR (posts.public_status = ? AND posts.user_id = ?)
+                                  OR (groups.id = ?) OR (posts.public_status = ? AND groups.id = ?)",
+                                  self.friends.ids, true, self.followed_users.ids, self.group_members.ids, true, self.followed_groups.ids)
+                                  .order(:created_at).limit(10)
+  end
   
 end
