@@ -11,23 +11,7 @@
   </head>
 
   <body>
-    <div class="nav-bar">
-      <% if user_signed_in? %>
-        <p>Hello <%= current_user.display_name %></p>
-        <%= button_to "Sign out", destroy_user_session_path, method: :delete %>
-        <div class="dropdown">
-          <button>Friend Requests</button>
-            <div class="dropdown-options">
-            <% current_user.recieved_requests.each do |request| %>
-              <%= link_to request.sender.display_name, friendships_path(friendship: {friendee_id: current_user.id, friendor_id: request.sender.id}, friend_request_id: request.id), data: {turbo_method: "post"} %>
-              <% end %>
-          </div>
-        </div>
-      <% else %>
-        <%= link_to "sign in", new_user_session_path %>
-        <%= link_to "sign up", new_user_registration_path %>
-      <% end %>
-    </div>
+    <%= render "layouts/navbar" %>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
 

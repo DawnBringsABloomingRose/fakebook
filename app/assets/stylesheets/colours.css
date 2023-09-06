@@ -1,0 +1,17 @@
+.filter-jet {
+  filter: invert(15%) sepia(9%) saturate(2%) hue-rotate(16deg) brightness(101%) contrast(88%);
+}
+
+.filter-pearl {
+  filter: invert(95%) sepia(10%) saturate(447%) hue-rotate(348deg) brightness(97%) contrast(88%);
+}
+
+.filter-main {
+  filter: invert(26%) sepia(60%) saturate(3553%) hue-rotate(111deg) brightness(99%) contrast(104%);
+}
+
+:root {
+  --main-color: #009700;
+  --main-bg-color: #333333;
+  --main-font-color: #EAE0CC
+}
