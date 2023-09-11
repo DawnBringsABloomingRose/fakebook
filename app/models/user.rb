@@ -37,7 +37,7 @@ class User < ApplicationRecord
     Post.left_joins(:groups).where("(posts.user_id = ?) OR (posts.public_status = ? AND posts.user_id = ?)
                                   OR (groups.id = ?) OR (posts.public_status = ? AND groups.id = ?)",
                                   self.friends.ids, true, self.followed_users.ids, self.group_members.ids, true, self.followed_groups.ids)
-                                  .order(:created_at).limit(10)
+                                  .order(:created_at).reverse_order.limit(10)
   end
   
 end
