@@ -14,10 +14,19 @@
   </p>
   <br> 
 
-  <p class="likes">
-  <%= post.likes.where(user: current_user).exists? ? image_tag("thumb-up.svg", height: 15, class: 'filter-main') : image_tag("thumb-up.svg", height: 15, class: 'filter-main2')%> 
-  <%= post.likes.count %>
+  <div class="like-block">
+  <% unless post.likes.where(user: current_user).exists? %>
+  <%= form_with model: [post, post.likes.build] do |form| %>
+    <%= form.hidden_field :likeable_id, value: post.id %>
+    <%= form.hidden_field :likeable_type, value: "Post" %>
+    <%= image_submit_tag("thumb-up.svg", height: 15, class: "filter-dsds") %> <p> <%= post.likes.count %></p>
+  <% end %>
+  <% else %>
+    <%= button_to image_tag("thumb-up.svg", height: 15, class: 'filter-main'), [post, post.likes.where(user: current_user)[0]], method: :delete %> <p> <%= post.likes.count %> </p>
+  <% end %> </div>
+
   </div>
+
 
   <br>
   <div class="post-comments">

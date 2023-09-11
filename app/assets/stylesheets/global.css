@@ -59,3 +59,18 @@ div.post {
   border-bottom: 1px dashed var(--main-color);
   margin-bottom: 5px;
 }
+
+.like-block, .like-block>form {
+  display: flex;
+}
+
+.like-block button {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+input[type="image"] {
+  padding-bottom: 4px;
+}

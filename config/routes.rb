@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :friendships, only: [:create]
   resources :posts do
     resources :comments
+    resources :likes, only: [:create, :destroy]
   end
   devise_for :users
   resources :users, only: [:index, :show]
