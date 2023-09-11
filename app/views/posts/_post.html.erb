@@ -1,17 +1,28 @@
-<div id="<%= dom_id post %>">
+<div id="<%= dom_id post %>" class="post">
 
-  <p>
-    <strong>User:</strong>
+<div class="post-main-content">
+  <p class="poster-name">
     <%= link_to post.user.display_name, post.user %>
   </p>
 
-  <p>
-    <strong>Text content:</strong>
+  <p class="time">@<%= post.created_at.to_fs(:long) %> </p>
+
+  <br>
+
+  <p class="post-contents">
     <%= post.text_content %>
   </p>
+  <br> 
 
-  <p><strong>Likes: </strong> <%= post.likes.count %>
+  <p class="likes">
+  <%= post.likes.where(user: current_user).exists? ? image_tag("thumb-up.svg", height: 15, class: 'filter-main') : image_tag("thumb-up.svg", height: 15, class: 'filter-main2')%> 
+  <%= post.likes.count %>
+  </div>
 
+  <br>
+  <div class="post-comments">
+  <%= render post.comments %>
+  </div>
   <%= render 'comments/form', model: post %>
 
 </div>
