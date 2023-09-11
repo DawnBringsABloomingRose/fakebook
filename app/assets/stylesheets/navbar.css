@@ -1,11 +1,16 @@
 
 .nav-bar { 
-  border: 1px solid black;
+  position: sticky;
+  top: 0;
   display: flex;
   justify-content: space-between;
   background-color: var(--main-bg-color);
   margin: 0;
+  grid-area: 1 / 1 / 2 / 4;
+  -webkit-box-shadow: 1px 3px 7px 0px rgba(100,100,100,0.57);
+  box-shadow: 1px 3px 7px 0px rgba(100,100,100,0.57);
 }
+
 .left-nav, .right-nav {
   display: flex;
 }

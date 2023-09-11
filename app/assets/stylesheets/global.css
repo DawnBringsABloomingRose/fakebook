@@ -1,10 +1,21 @@
-p, button, label {
+p, button, label, a {
   color: var(--main-font-color);
   font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
 }
 
 div, body {
   background-color: var(--main-bg-color);
+}
+
+/*page layout */
+.container {
+  display: grid;
+  grid-template-columns: 1fr 5fr 1fr;
+  grid-template-rows: 1fr 10fr;
+}
+
+.main-content {
+  grid-area: 2 / 2 / 3 / 3;
 }
 
 

@@ -1,12 +1,8 @@
 <div id="<%= dom_id post %>">
-  <p>
-    <strong>Public status:</strong>
-    <%= post.public_status %>
-  </p>
 
   <p>
     <strong>User:</strong>
-    <%= post.user_id %>
+    <%= link_to post.user.display_name, post.user %>
   </p>
 
   <p>
