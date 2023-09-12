@@ -1,0 +1,15 @@
+<div class="friends">
+<%= turbo_frame_tag "friends" do%>
+  <%= link_to "All", '/friendships/all' %>
+  <%= link_to "Sent Requests", '/friendships/sent_requests' %>
+  <%= link_to "Received Requests", '/friendships/recieved_requests' %>
+
+  <div class="requests">
+  <ul>
+  <% current_user.sent_frequests.each do |request| %>
+    <li><%= link_to request.reciever.display_name, request.reciever, data: { turbo_frame: "_top" } %>
+    <%= button_to "X", request, method: :delete, form: { style: 'display:inline-block;' } %></li>
+  <% end %> </ul>
+  </div>
+<% end %>
+</div>

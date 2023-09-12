@@ -1,0 +1,11 @@
+<div class="friends">
+<%= turbo_frame_tag "friends" do%>
+  <%= link_to "All", '/friendships/all' %>
+  <%= link_to "Sent Requests", '/friendships/sent_requests' %>
+  <%= link_to "Received Requests", '/friendships/recieved_requests' %>
+
+  <% current_user.friends.each do |friend| %>
+    <p><%= link_to friend.display_name, friend, data: { turbo_frame: "_top" } %></p>
+  <% end %>
+<% end %>
+</div>

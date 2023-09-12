@@ -23,7 +23,7 @@
         <div class="dropdown">
           <button><%= image_tag "friend-icon.svg", height: 30, class: 'filter-pearl' %></button>
             <div class="dropdown-options">
-            <% current_user.recieved_requests.each do |request| %>
+            <% current_user.received_frequests.each do |request| %>
               <%= link_to request.sender.display_name, friendships_path(friendship: {friendee_id: current_user.id, friendor_id: request.sender.id}, friend_request_id: request.id), data: {turbo_method: "post"} %>
               <% end %>
             </div>

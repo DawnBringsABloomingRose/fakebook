@@ -5,13 +5,18 @@ class FriendRequestsController < ApplicationController
     return if FriendRequest.exists?(sender_id: params[:friend_request][:reciever_id], reciever_id: current_user.id)
     return if current_user.friends.exists?(params[:friend_request][:reciever_id])
 
-    @friend_request = current_user.sent_requests.build(friend_request_params)
+    @friend_request = current_user.sent_frequests.build(friend_request_params)
 
     if @friend_request.save
     else
     end
-  end
 
+    
+  end
+  def destroy
+    @friendrequest = FriendRequest.find(params[:id])
+    @friendrequest.destroy
+  end
   private
 
   def friend_request_params

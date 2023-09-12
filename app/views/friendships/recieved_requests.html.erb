@@ -1,0 +1,15 @@
+<div class="friends">
+<%= turbo_frame_tag "friends" do%>
+  <%= link_to "All", '/friendships/all' %>
+  <%= link_to "Sent Requests", '/friendships/sent_requests' %>
+  <%= link_to "Received Requests", '/friendships/recieved_requests' %>
+
+<ul>
+<% current_user.received_frequests.each do |request| %>
+  <li><%= link_to request.sender.display_name, request.sender, data: { turbo_frame: "_top" } %>  
+  <%= link_to image_tag("check-bold.svg", height: 20, class: 'filter-main'), friendships_path(friendship: {friendee_id: current_user.id, friendor_id: request.sender.id}, friend_request_id: request.id), data: {turbo_method: "post"} %>
+  <%= button_to "X", request, method: :delete, form: { style: 'display:inline-block;' } %>
+  </li>
+<% end %> </ul>
+<% end %>
+</div>

@@ -64,11 +64,16 @@ div.post {
   display: flex;
 }
 
-.like-block button {
+.like-block button, ul button {
   background-color: transparent;
   border: none;
   padding: 0;
   margin: 0;
+}
+
+ul button {
+  font-size: 20px;
+  color:red;
 }
 
 input[type="image"] {

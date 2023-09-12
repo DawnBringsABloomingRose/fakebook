@@ -16,8 +16,10 @@ class User < ApplicationRecord
   has_many :followed_groups, through: :following, source: :following, source_type: "Group"
 
   #friends
-  has_many :sent_requests, foreign_key: "sender_id", class_name: "FriendRequest"
-  has_many :recieved_requests, foreign_key: "reciever_id", class_name: "FriendRequest"
+  has_many :sent_frequests, foreign_key: "sender_id", class_name: "FriendRequest"
+  has_many :received_frequests, foreign_key: "reciever_id", class_name: "FriendRequest"
+  has_many :sent_requests, through: :sent_frequests, class_name: "User", source: "reciever"
+  has_many :received_requests, through: :received_frequests, class_name: "User", source: "sender"
   
   def friends
     User.where(id: Friendship.select(
@@ -27,12 +29,12 @@ class User < ApplicationRecord
   end
 
   def main_feed
-    # does not work with current version of rails
-    # open issue with "or" method and any form of join or eager loading
-    # keeping for potential future use
     #Post.where(user: self.friends).or(Post.where(public_status: true, user: self.followed_users)).or(
     #  Post.includes(:groups).where(groups: { id: self.group_members }).or(
     #    Post.includes(:groups).where(public_status: true, groups: { id: self.group_members })))
+    # above implementation does not work with current version of rails
+    # open issue with "or" method and any form of join or eager loading
+    # keeping for potential future use
 
     Post.left_joins(:groups).where("(posts.user_id = ?) OR (posts.public_status = ? AND posts.user_id = ?)
                                   OR (groups.id = ?) OR (posts.public_status = ? AND groups.id = ?)",

@@ -8,6 +8,14 @@ class FriendshipsController < ApplicationController
     end
   end
 
+  def index
+  end
+
+  def destroy
+    @friendrequest = FriendRequest.find(params[:id])
+    @friendrequest.destroy
+  end
+
   def friendship_params
     params.require(:friendship).permit(:friendee_id, :friendor_id)
   end
