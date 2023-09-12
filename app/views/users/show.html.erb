@@ -1,9 +1,16 @@
-<p><%= @user.email %></p>
-<p><%= @user.display_name %></p>
-<p><%= @user.username %></p>
-<p><%= @user.birthday %></p>
+<div class="user-info">
+  <p><%= @user.email %></p>
+  <p><%= @user.display_name %></p>
+  <p><%= @user.username %></p>
+  <p><%= @user.birthday %></p>
+</div>
 
+<% unless current_user == @user or current_user.friends.i%>
 <%= form_with model: FriendRequest.new do |form| %>
   <%= form.hidden_field :reciever_id, value: @user.id %>
   <%= form.submit %>
 <% end %>
+<% end %>
+
+<%= render @user.posts %>
+
