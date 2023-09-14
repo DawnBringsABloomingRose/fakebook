@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'notifications' => "notifications#index"
   resources :friendships, only: [:create, :index, :destroy]
   get 'home' => 'home#index'
   get 'friends', to: 'friendships#all'

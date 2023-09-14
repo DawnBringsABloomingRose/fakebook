@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :posts
   has_many :like
   has_many :comments
+  has_many :notifications
   has_many :owned_groups, foreign_key: "owner_id", class_name: "Group"
   has_many :group_members, foreign_key: "member_id"
   has_many :belonged_groups, through: :group_members, source: :group

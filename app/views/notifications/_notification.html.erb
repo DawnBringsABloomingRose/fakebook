@@ -1,0 +1,6 @@
+<% if notification.notificable_type == 'FriendRequest' %>
+  <p>You recieved a friend request from <%= notification.notificable.sender.display_name %>!</p>
+<% elsif notification.notificable_type == 'Comment' %>
+  <p>You recieved a comment from <%= notification.notificable.user.display_name %> on your post!</p>
+<% end %>
+<% notification.see %>
